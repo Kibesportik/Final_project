@@ -1,0 +1,47 @@
+.error {
+    color: red;
+}
+.blacker {
+    color: black;
+}
+.user_info {
+    text-align: right;
+}
+.bg {
+    background-color: #808080;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.searchbar {
+    border: 1 px solid;
+    padding: 0;
+    background: none;
+    text-align: center;
+    border-radius: 0.5rem;
+}
+.product {
+    border: none;
+    padding: 0;
+    background: none;
+}
+.my_card {
+    border: 2px solid;
+    border-radius: 5px;
+    padding: 7px 15px 7px 15px;
+    background-color: #808080;
+}
+.my_badge {
+    display: inline-block;
+    padding: 0.25em 0.4em;
+    font-size: 95%;
+    font-weight: 500;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+}
+.input{
+    font-size:19px;
+    color:#000000;
+}
