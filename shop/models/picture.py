@@ -1,16 +1,14 @@
-from tkinter.constants import CASCADE
-
 from django.db import models
 from parler.models import TranslatableModel, TranslatedFields
-from . import Author
 
 class Picture(TranslatableModel):
-    pictureLink =models.CharField()
-    authorId = models.ForeignKey(Author, on_delete=CASCADE, null=False)
+    image = models.URLField()
+    author = models.ForeignKey("shop.Author", on_delete=models.CASCADE)
     dateOfArrival = models.DateTimeField()
     sizeHorizontal = models.IntegerField()
     sizeVertical = models.IntegerField()
     inStock = models.BooleanField()
+    amount = models.IntegerField()
     translations = TranslatedFields(
         name = models.CharField(max_length=50),
     )
