@@ -1,7 +1,10 @@
 {% extends 'base/base.html' %}
 {% block content %}
-<div class="row row-cols-1 row-cols-md-3 g-1">
-{% for picture in pictures %}
+<h2>Favourites List:</h2>
+
+{% if favourites_list %}
+  <div class="row row-cols-1 row-cols-md-3 g-1">
+    {% for picture in favourites_list %}
     <div class="my_card">
       <a href="{% url 'picture_details' picture.pk %}" class="invisible-link">
         <div class="row g-2 align-items-start">
@@ -16,7 +19,14 @@
           </div>
         </div>
       </a>
+      <form method="post" action="{% url 'favourites_delete' picture.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger text-dark delete_btn">Dislike <i class="bi bi-heartbreak-fill"></i></button>
+      </form>
     </div>
-{% endfor %}
-</div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No favourites yet ...</p>
+{% endif %}
 {% endblock %}

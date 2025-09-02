@@ -4,60 +4,65 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
         {{ form.non_field_errors }}
-        <div>
+        <div class="form-div">
+            <div>
             {{ form.image.label_tag }}<br>
             {{ form.image }}
             {{ form.image.errors }}
+            </div>
         </div>
-
-        <div>
-            {{ form.author.label_tag }}<br>
-            {{ form.author }}
-            {{ form.author.errors }}
-        </div>
-
-        <div>
+        <div class="form-div">
+            <div>
             {{ form.dateOfArrival.label_tag }}<br>
             {{ form.dateOfArrival }}
             {{ form.dateOfArrival.errors }}
+            </div>
         </div>
-
+        <div class="form-div">
+            <div>
+            {{ form.price.label_tag }}<br>
+            {{ form.price }}
+            {{ form.price.errors }}
+            </div>
+        </div>
+        <div class="form-div">
         <div>
             {{ form.sizeHorizontal.label_tag }}<br>
             {{ form.sizeHorizontal }}
             {{ form.sizeHorizontal.errors }}
         </div>
-
         <div>
             {{ form.sizeVertical.label_tag }}<br>
             {{ form.sizeVertical }}
             {{ form.sizeVertical.errors }}
         </div>
-
-        <div>
-            {{ form.inStock.label_tag }}<br>
-            {{ form.inStock }}
-            {{ form.inStock.errors }}
-        </div>
-
-        <div>
-            {{ form.amount.label_tag }}<br>
-            {{ form.amount }}
-            {{ form.amount.errors }}
-        </div>
-
+    </div>
+    <div class="form-div">
         <div>
             {{ form.name_en.label_tag }}<br>
             {{ form.name_en }}
             {{ form.name_en.errors }}
         </div>
-
         <div>
             {{ form.name_uk.label_tag }}<br>
             {{ form.name_uk }}
             {{ form.name_uk.errors }}
         </div>
+    </div>
 
-        <button type="submit">Save</button>
+    <div class="form-div">
+        <div>
+            {{ form.description_en.label_tag }}<br>
+            {{ form.description_en }}
+            {{ form.description_en.errors }}
+        </div>
+        <div>
+            {{ form.description_uk.label_tag }}<br>
+            {{ form.description_uk }}
+            {{ form.description_uk.errors }}
+        </div>
+    </div>
+    <p></p>
+    <button class="btn btn-warning btn-header" type="submit">Save</button>
 </form>
 {% endblock %}

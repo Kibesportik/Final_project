@@ -1,10 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title> etsy </title>
     {% load i18n %}
     {% load static %}
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{% trans "Veterans' House" %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -15,50 +18,82 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
             integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
 </head>
 <body class="bg">
-        <header>
-<div class="container">
+{% block header %}
+<div class="header-container">
   <div class="left">
-    <h1 style="text-align: left;">etsy</h1>
-    <button>{% trans "Login" %}</button>
+    {% if not user.is_superuser %}
+        <h1 style="text-align: left;">Veterans` House</h1>
+    {% else %}
+        <h1 style="text-align: left;">Veterans` House: Admin Pannel</h1>
+    {% endif %}
+    <div>
+    {% if not user.is_superuser %}
+    <a class="btn btn-warning  invisible-link" href="{% url 'index'%}">Home Page <i class="bi bi-house-door-fill"></i></a>
+      {% if user.is_authenticated %}
+      <a class="btn btn-warning invisible-link" href="{% url 'account_details' user.id %}">{{user.username}} <i class="bi bi-person-fill"></i></a>
+      {% else %}
+      <a  class="btn btn-warning btn-header invisible-link" href="{% url 'login' %}">Login <i class="bi bi-door-closed-fill"></i></a>
+      {% endif %}
+    {% endif %}
+    </div>
   </div>
 
   <div class="center">
-    <input class="searchbar" type="text" placeholder="Инпут по центру">
+    <div class="input-group">
+        <span class="input-group-text bg-white border-end-0">
+            <i class="bi bi-search"></i>
+        </span>
+        <input type="text" id="product_search" class="form-control border-start-0" placeholder="Search...">
+    </div>
   </div>
-
   <div class="right">
-    <button>Favourites</button>
-    <button>Cart</button>
-    <a href="{% url 'upload_photo'%}"> upload_photo </a>
+      {% if not user.is_superuser %}
+      {% if request.user.is_authenticated %}
+      <div class="parent_alert">
+        <a class="btn btn-warning btn-header invisible-link" href="{% url 'favourites' user.id %}">Liked <i class="bi bi-heart-fill"></i></a>
+          <i class="bi bi-{{user.favouritesList|length}}-square-fill count_alert"></i>
+      </div>
+      <div class="parent_alert">
+        <a class="btn btn-warning btn-header invisible-link" href="{% url 'cart' user.id %}">Cart <i class="bi bi-cart-fill"></i></a>
+          <i class="bi bi-{{user.cartList|length}}-square-fill count_alert"></i>
+      </div>
+      {% else %}
+        <a class="btn btn-warning btn-header invisible-link" href="{% url 'favourites' 0 %}">Liked <i class="bi bi-heart-fill"></i></a>
+        <a class="btn btn-warning btn-header invisible-link" href="{% url 'cart' 0 %}">Cart <i class="bi bi-cart-fill"></i></a>
+      {% endif %}
+      {% else %}
+      {% if user.is_authenticated %}
+      <a class="btn btn-warning invisible-link" href="{% url 'account_details' user.id %}">{{user.username}} <i class="bi bi-person-fill"></i></a>
+      {% else %}
+      <a  class="btn btn-warning btn-header invisible-link" href="{% url 'login' %}">Login <i class="bi bi-door-closed-fill"></i></a>
+      {% endif %}
+      <a class="btn btn-warning  invisible-link" href="{% url 'index'%}">Home Page <i class="bi bi-house-door-fill"></i></a>
+      {% endif %}
     <form action="{% url 'set_language' %}" method="post" id="language-form">
     {% csrf_token %}
-    {% get_current_language as LANGUAGE_CODE %}
-    {% get_available_languages as LANGUAGES %}
-    {% get_language_info_list for LANGUAGES as languages %}
-    <select name="language" id="language-select">
+    <select name="language" id="language-select" onchange="this.form.submit()">
         {% for language in languages %}
             <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+
                 {{ language.name_local }}
             </option>
         {% endfor %}
     </select>
+
     </form>
   </div>
 </div>
-    </header>
-<hr>
-{% block content %}
 {% endblock %}
+<hr>
+<main id="page-content">
+    {% block content %}{% endblock %}
+</main>
+<div id="searched_products" class="d-none row row-cols-1 row-cols-md-3 g-1"></div>
 </body>
-<script>
-  const btn = document.getElementById("");
-  const select = document.getElementById("");
-
-  btn.addEventListener("click", () => {
-      select.showPicker();
-  });
-</script>
 <script src = "{% static 'js/language_select.js' %}"></script>
+<script src = "{% static 'js/searchbar.js' %}"></script>
 </html>

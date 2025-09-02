@@ -1,0 +1,68 @@
+{% extends 'base/base.html' %}
+{% block content %}
+{% load i18n %}
+<h3>Account Details:</h3>
+<p>Your username: {{user.username}}</p>
+<p>Your email: {{user.email}}</p>
+
+<a class="btn btn-warning" href="{% url 'change_password' %}">
+  {% trans "Change password" %}
+</a>
+
+<a class="btn btn-warning" href="{% url 'change_username' %}">
+  {% trans "Change username" %}
+</a>
+<button class="btn btn-danger text-dark" type="button" data-bs-toggle="modal"
+        data-bs-target="#Logout_Window"> Log out <i class="bi bi-door-open-fill"></i>
+</button>
+<hr>
+{% if not user.is_superuser %}
+<h3>Ordered Pictures:</h3>
+
+{% if user_orders %}
+  <div class="row row-cols-1 row-cols-md-3 g-1">
+    {% for order in user_orders %}
+      <div class="my_card">
+        <a href="{% url 'picture_details' order.picture.id %}" class="invisible-link">
+          <div class="row g-2 align-items-start">
+            <div class="col-6">
+              <img src="{{ order.picture.presigned_url }}" alt="{{ order.picture.name }}" style="max-width:300px;">
+            </div>
+            <div class="col-6 text-start">
+              <h4>Order Info:</h4>
+              <span class="badge bg-warning text-dark">Picture name: {{ order.picture.name }}</span><br>
+              <span class="badge bg-warning text-dark">Ordered on name: {{ order.full_name }}</span><br>
+              <span class="badge bg-warning text-dark">Delivery postcode: {{ order.postcode }}</span><br>
+              <span class="badge bg-warning text-dark">Date of order: {{ order.dateOfOrder }}</span><br>
+            </div>
+          </div>
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No orders yet ...</p>
+{% endif %}
+{% else %}
+<h3>Admin Settings:</h3>
+
+<a class="btn btn-warning btn-header invisible-link" href="{% url 'upload_photo'%}"> Upload photo </a>
+{% endif %}
+<div class="modal fade" id="Logout_Window" tabindex="-1" aria-labelledby="Logout_Window" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5">Confirm to log out</h1>
+        </div>
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <div class="modal-footer" style="display: flex;">
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="submit" class="btn btn-warning btn-header" style="margin-left: auto;">Confirm</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

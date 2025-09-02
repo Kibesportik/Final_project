@@ -1,6 +1,8 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+from google.oauth2 import service_account
+from googleapiclient.discovery import build
 
 load_dotenv()
 
@@ -19,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'parler',
     'storages',
     'shop',
@@ -29,14 +32,13 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    "django.middleware.locale.LocaleMiddleware",
     'django.middleware.common.CommonMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 ROOT_URLCONF = 'a_paintings_project.urls'
 
 TEMPLATES = [
@@ -46,9 +48,11 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'user.context_processors.password_change_form',
             ],
         },
     },
@@ -99,9 +103,9 @@ STATICFILES_DIRS = [BASE_DIR/'static']
 
 LOGIN_REDIRECT_URL = '/'
 
-LOGOUT_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = 'login/'
 
-LOGIN_URL = 'login/'
+LOGIN_URL = '/login/'
 
 PARLER_LANGUAGES = {
     None: (
@@ -121,15 +125,17 @@ AUTH_USER_MODEL = 'user.User'
 DEFAULT_FILE_STORAGE='storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID=os.environ['AWS_ACCESS_KEY_ID']
-
 AWS_SECRET_ACCESS_KEY=os.environ['AWS_SECRET_ACCESS_KEY']
-
 AWS_STORAGE_BUCKET_NAME=os.environ['AWS_STORAGE_BUCKET_NAME']
-
 AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.r2.cloudflarestorage.com"
-
 AWS_S3_ENDPOINT_URL=os.environ['AWS_S3_ENDPOINT_URL']
-
 AWS_QUERYSTRING_AUTH=os.environ['AWS_QUERYSTRING_AUTH']
-
 AWS_DEFAULT_ACL=os.environ['AWS_DEFAULT_ACL']
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = os.environ['EMAIL_PORT']
+EMAIL_USE_TLS =os.environ['EMAIL_USE_TLS']
+EMAIL_HOST_USER = os.environ['EMAIL_HOST_USER']
+EMAIL_HOST_PASSWORD=os.environ['EMAIL_HOST_PASSWORD']
+DEFAULT_FROM_EMAIL = 'noreply@gmail.com'

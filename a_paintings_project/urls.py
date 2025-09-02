@@ -8,6 +8,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("i18n/", include("django.conf.urls.i18n")),
     path('', include('shop.urls')),
+    path('', include('user.urls')),
 ]
 
 if settings.DEBUG:

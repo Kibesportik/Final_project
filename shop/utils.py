@@ -14,6 +14,14 @@ def upload_to_r2(file, filename):
         Fileobj=file,
         Bucket=settings.AWS_STORAGE_BUCKET_NAME,
         Key=filename,
-        ExtraArgs={'ACL': 'public-read'}
+        ExtraArgs={'ACL': 'private'}
     )
-    return f"https://{settings.AWS_S3_CUSTOM_DOMAIN}/{filename}"
+    return filename
+
+
+def generate_presigned_url(key: str, expires_in: int = 60*60*24*7) -> str:
+    return s3.generate_presigned_url(
+        ClientMethod="get_object",
+        Params={"Bucket": settings.AWS_STORAGE_BUCKET_NAME, "Key": key},
+        ExpiresIn=expires_in,
+    )

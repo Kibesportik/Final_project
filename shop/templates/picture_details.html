@@ -1,0 +1,79 @@
+{% extends 'base/base.html' %}
+{% block content %}
+<div class="row g-0 align-items-start card-img-top">
+  <div class="col-6 px-0">
+    <img src="{{ picture.presigned_url }}"
+         alt="{{ picture.name }}"
+         class="img-fluid rounded"
+         style="max-width:800px;">
+  </div>
+  <div class="col-6 px-2 text-start">
+    <h3 class="mb-2">Information About Picture:</h3>
+    <p class="mb-1"><strong>Name: </strong>{{ picture.name }}</p>
+    <p class="mb-1"><strong>Description: </strong>{{ picture.description }}</p>
+    <p class="mb-1"><strong>Size: </strong>{{ picture.sizeHorizontal }} x {{ picture.sizeVertical }} cm</p>
+    <p class="mb-1"><strong>Date of arrival: </strong>{{ picture.dateOfArrival }}</p>
+    <p class="mb-1"><strong>Price: </strong>{{ picture.price }} £</p>
+      <div class="d-flex gap-2 mt-2">
+        {% if not user.is_superuser %}
+        {% if user.is_authenticated %}
+        {% if picture.inStock %}
+        {% if picture.id in user.favouritesList %}
+        {% else %}
+        <a href="{% url 'add_to_favourites' picture.pk %}" class="btn btn-success">
+            Like <i class="bi bi-heart-fill"></i>
+        </a>
+        {% endif %}
+        {% if picture.id in user.cartList %}
+        {% else %}
+        <a href="{% url 'add_to_cart' picture.pk %}" class="btn btn-success">
+            Add to cart <i class="bi bi-cart-fill"></i>
+        </a>
+        {% endif %}
+        <button class="btn btn-warning text-dark" data-bs-toggle="modal"
+           data-bs-target="#Order_Window{{picture.id}}">Order</button>
+        {% else %}
+        <div class="success">
+          Already ordered by you
+        </div>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+      </div>
+  </div>
+</div>
+<div class="modal fade" id="Order_Window{{picture.id}}" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Order picture: {{picture.name}}</h5>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'new_order' %}">
+          {% csrf_token %}
+          <input type="hidden" name="picture_id" value="{{ picture.id }}">
+
+          {% for field in order_form %}
+            <div class="mb-3">
+              {{ field.label_tag }}
+              {{ field }}
+              {% if field.errors %}
+                <div class="error">
+                  {% for error in field.errors %}
+                    {{ error }}<br>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          <div class="modal-footer d-flex">
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <button type="submit" class="btn btn-warning ms-auto">Confirm order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
