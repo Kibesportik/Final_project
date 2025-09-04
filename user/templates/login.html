@@ -1,24 +1,29 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
+
 {% block content %}
 <div>
-<h2>Login:</h2>
-<form method="post">
-{% csrf_token %}
-{% for field in form %}
-<div class="mb-3">
-    {{ field.label_tag }}<br>
-    {{ field }}
-    {% if field.errors %}
-        <div class="error">
-            {% for error in field.errors %}
-                {{ error }} <br>
-            {% endfor %}
+    <h2>{% trans "Login:" %}</h2>
+    <form method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.errors %}
+            <div class="error">
+                {% for error in field.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
-    {% endif %}
-</div>
-{% endfor %}
-<button class="btn btn-warning btn-header" type="submit"> Login </button>
-<p>Don`t have an account yet? : <a class="link" href="{% url 'register' %} ">Register</a></p>
-</form>
+        {% endfor %}
+        <button class="btn btn-warning btn-header" type="submit">{% trans "Login" %}</button>
+        <p>
+            {% trans "Don`t have an account yet? :" %}
+            <a class="link" href="{% url 'register' %}">{% trans "Register" %}</a>
+        </p>
+    </form>
 </div>
 {% endblock %}

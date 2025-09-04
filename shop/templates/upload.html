@@ -1,15 +1,18 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 {% block content %}
-<h2>Upload Photo</h2>
+<h2>{% trans "Upload Photo" %}</h2>
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
         {{ form.non_field_errors }}
+        {{ form.image.label_tag }}<br>
         <div class="form-div">
-            <div>
-            {{ form.image.label_tag }}<br>
-            {{ form.image }}
+            <label class="custom-file-label">
+              {% trans "Choose a file" %}
+              {{ form.image }}
+            </label>
+            <span id="file-name"></span>
             {{ form.image.errors }}
-            </div>
         </div>
         <div class="form-div">
             <div>
@@ -63,6 +66,6 @@
         </div>
     </div>
     <p></p>
-    <button class="btn btn-warning btn-header" type="submit">Save</button>
+    <button class="btn btn-warning btn-header" type="submit">{% trans "Save" %}</button>
 </form>
 {% endblock %}

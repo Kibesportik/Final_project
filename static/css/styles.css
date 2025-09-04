@@ -2,7 +2,7 @@
     color: #FF7373;
 }
 
-.success{
+.success {
     color: #73FF73;
 }
 
@@ -20,14 +20,14 @@
 .my_card {
     border: 2px solid #FFBC00;
     border-radius: 5px;
-    padding: 7px 15px 7px 15px;
+    padding: 7px 15px;
     background-color: #808080;
     position: relative;
 }
 
 .header-container {
     display: flex;
-    align-items: centre;
+    align-items: center; /* исправлено 'centre' на 'center' */
     justify-content: space-between;
     width: 100%;
 }
@@ -35,7 +35,7 @@
 .left {
     display: flex;
     padding: 5px;
-    margin:  5px;
+    margin: 5px;
     gap: 10px;
     align-items: center;
     justify-content: space-between;
@@ -46,25 +46,23 @@
     align-items: center;
     flex-grow: 1;
     justify-content: center;
-
 }
 
 .right {
     display: flex;
     padding: 5px;
-    margin:  5px;
+    margin: 5px;
     gap: 10px;
     align-items: center;
 }
 
 .searchbar {
-    border: 1 px solid;
-    padding: 0;
+    border: 1px solid; /* исправлено '1 px' на '1px' */
+    padding: 5px;
     background: none;
     text-align: center;
     border-radius: 0.5rem;
-    font-size:19px;
-    padding: 5px;
+    font-size: 19px;
     width: 300px;
 }
 
@@ -86,27 +84,27 @@ a.invisible-link {
     color: inherit;
 }
 
-.delete_btn{
+.delete_btn {
     position: absolute;
     bottom: 5px;
     right: 5px;
 }
 
-.order_btn{
+.order_btn {
     position: absolute;
     bottom: 45px;
     right: 5px;
 }
 
-.parent_alert{
+.parent_alert {
     position: relative;
     padding: 5px;
 }
 
-.count_alert{
+.count_alert {
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
 }
 
 #language-select {
@@ -126,6 +124,26 @@ a.invisible-link {
     background-color: #ffc107;
     color: #212529;
 }
+
 #language-select::-ms-expand {
     display: none;
+}
+
+.custom-file-label {
+    padding: 5px 10px;
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-weight: 400;
+}
+
+.real-file-input {
+    display: none;
+}
+
+#file-name {
+    margin-left: 10px;
+    margin-top: 9px;
+    font-style: italic;
 }

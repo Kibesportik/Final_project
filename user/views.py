@@ -1,23 +1,29 @@
-from .models import User
-from django.shortcuts import redirect
-from django.contrib.auth import login
-from .forms import UserRegisterForm, UserLoginForm
-from .mixins import CleanLoginRequiredMixin
+from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth.views import LoginView
-from django.views.generic.detail import DetailView
+from django.shortcuts import redirect
 from django.urls import reverse
-from django.contrib.auth.forms import PasswordChangeForm
-from .utils import send_email_code
-from django.views.generic.edit import CreateView, FormView, DeleteView, View
+from django.utils.translation import gettext_lazy as _
+from django.views import View
+from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, FormView
 from django.views.generic.list import ListView
-from django.contrib.auth import update_session_auth_hash
-from .forms import CodeForm, UsernameChangeForm
-from .mixins import CodeConfirmationMixin
-from shop.models import Picture, Order
+
 from shop.forms import OrderForm
+from shop.models import Picture, Order
+from .forms import (
+    UserRegisterForm,
+    UserLoginForm,
+    CodeForm,
+    UsernameChangeForm,
+    CustomPasswordChangeForm,
+)
+from .mixins import CleanLoginRequiredMixin, CodeConfirmationMixin
+from .models import User
+from .utils import send_email_code
+
 
 class Register(CreateView):
-    template_name = 'register.html'
+    template_name = "register.html"
     model = User
     form_class = UserRegisterForm
 
@@ -29,38 +35,40 @@ class Register(CreateView):
         return redirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse('account_details', kwargs={'user_id': self.request.user.id})
+        return reverse("account_details", kwargs={"user_id": self.request.user.id})
 
 
 class Login(LoginView):
-    template_name = 'login.html'
+    template_name = "login.html"
     form_class = UserLoginForm
     redirect_authenticated_user = True
 
     def get_success_url(self):
-        return reverse('account_details', kwargs={'user_id': self.request.user.id})
+        return reverse("account_details", kwargs={"user_id": self.request.user.id})
 
-class AccountDetails(CleanLoginRequiredMixin,DetailView):
-    template_name= 'account_details.html'
+
+class AccountDetails(CleanLoginRequiredMixin, DetailView):
+    template_name = "account_details.html"
     model = User
-    context_object_name = 'user'
-    slug_url_kwarg = 'user_id'
-    slug_field = 'id'
+    context_object_name = "user"
+    slug_url_kwarg = "user_id"
+    slug_field = "id"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         current_user = self.get_object()
-        context['user_orders'] = Order.objects.filter(user=current_user)
+        context["user_orders"] = Order.objects.filter(user=current_user)
         return context
+
 
 class PasswordChange(CleanLoginRequiredMixin, CodeConfirmationMixin, FormView):
     template_name = "change_password.html"
-    initial_form_class = PasswordChangeForm
+    initial_form_class = CustomPasswordChangeForm
     code_form_class = CodeForm
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        if self.get_form_class() == PasswordChangeForm:
+        if self.get_form_class() == CustomPasswordChangeForm:
             kwargs["user"] = self.request.user
         return kwargs
 
@@ -68,7 +76,7 @@ class PasswordChange(CleanLoginRequiredMixin, CodeConfirmationMixin, FormView):
         send_email_code(
             self.request.user,
             self.request,
-            subject_text="Password change confirmation",
+            subject_text=_("Password change confirmation"),
         )
 
     def handle_code_form(self, form, pending_data):
@@ -98,7 +106,7 @@ class UsernameChange(CleanLoginRequiredMixin, CodeConfirmationMixin, FormView):
         send_email_code(
             self.request.user,
             self.request,
-            subject_text="Username change confirmation",
+            subject_text=_("Username change confirmation"),
         )
 
     def handle_code_form(self, form, pending_data):
@@ -113,42 +121,41 @@ class UsernameChange(CleanLoginRequiredMixin, CodeConfirmationMixin, FormView):
         return reverse("account_details", kwargs={"user_id": self.request.user.id})
 
 
-class FavouritesView(CleanLoginRequiredMixin,ListView):
-    template_name = 'favourites.html'
+class FavouritesView(CleanLoginRequiredMixin, ListView):
+    template_name = "favourites.html"
     model = Picture
-    context_object_name = 'favourites_list'
-    slug_url_kwarg = 'user_id'
-    slug_field = 'id'
+    context_object_name = "favourites_list"
+    slug_url_kwarg = "user_id"
+    slug_field = "id"
 
     def get_queryset(self):
         user = self.request.user
         if not user.favouritesList:
             return Picture.objects.none()
-
         return Picture.objects.filter(id__in=user.favouritesList)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
+        context["user"] = self.request.user
         return context
 
+
 class CartView(CleanLoginRequiredMixin, ListView):
-    template_name = 'cart.html'
+    template_name = "cart.html"
     model = Picture
-    context_object_name = 'cart_list'
-    slug_url_kwarg = 'user_id'
-    slug_field = 'id'
+    context_object_name = "cart_list"
+    slug_url_kwarg = "user_id"
+    slug_field = "id"
 
     def get_queryset(self):
         user = self.request.user
         if not user.cartList:
             return Picture.objects.none()
-
         return Picture.objects.filter(id__in=user.cartList)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
+        context["user"] = self.request.user
         context["order_form"] = OrderForm()
         return context
 

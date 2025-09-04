@@ -1,22 +1,53 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 {% block content %}
-<div class="row row-cols-1 row-cols-md-3 g-1">
-{% for picture in pictures %}
-    <div class="my_card">
-      <a href="{% url 'picture_details' picture.pk %}" class="invisible-link">
-        <div class="row g-2 align-items-start">
-          <div class="col-6">
-            <img src="{{ picture.presigned_url }}" alt="{{ picture.name }}" style="max-width:300px;">
+<div class="album py-2">
+  <div class="container-fluid">
+     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+      {% for picture in pictures %}
+      <div class="col">
+        <a href="{% url 'picture_details' picture.pk %}" class="text-decoration-none">
+          <div class="card shadow-sm">
+            <img src="{{ picture.presigned_url }}" class="bd-placeholder-img card-img-top"
+                 alt="{{ picture.name }}" height="250" style="object-fit: cover; width: 100%;">
+            <div class="card-body">
+              <h4 class="card-title">{% trans "Short Picture Info:" %}</h4>
+              <span class="badge bg-warning text-dark">{% trans "Picture name:" %} {{ picture.name }}</span><br>
+              <span class="badge bg-warning text-dark">{% trans "Size:" %} {{ picture.sizeHorizontal }} x
+                {{ picture.sizeVertical }} cm</span><br>
+              <span class="badge bg-warning text-dark">{% trans "Price:" %} {{ picture.price }} £</span>
+            </div>
           </div>
-          <div class="col-6 text-start">
-            <h4>Short Picture Info:</h4>
-            <span class="badge badge_text bg-warning text-dark">Picture name: {{ picture.name }}</span><br>
-            <span class="badge badge_text bg-warning text-dark">Size: {{ picture.sizeHorizontal }} x {{ picture.sizeVertical }} cm</span><br>
-            <span class="badge badge_text bg-warning text-dark">Price: {{ picture.price }} £</span><br>
-          </div>
-        </div>
-      </a>
+        </a>
+      </div>
+      {% endfor %}
     </div>
-{% endfor %}
+  </div>
 </div>
+{% endblock %}
+{% block paginator %}
+{% if pictures|length > 8 %}
+  <div class="d-flex justify-content-center align-items-center my-3">
+    {% if pictures.has_previous %}
+      <a href="?page={{ pictures.previous_page_number }}" class="btn btn-warning">
+        {% trans "Previous" %}
+      </a>
+    {% else %}
+      <button class="btn btn-warning" disabled>{% trans "Previous" %}</button>
+    {% endif %}
+
+    <span class="mx-2">
+      {% trans "Page" %} {{ pictures.number }} {% trans "of" %} {{ pictures.paginator.num_pages }}
+    </span>
+
+    {% if pictures.has_next %}
+      <a href="?page={{ pictures.next_page_number }}" class="btn btn-warning">
+        {% trans "Next" %}
+      </a>
+    {% else %}
+      <button class="btn btn-warning" disabled>{% trans "Next" %}</button>
+    {% endif %}
+  </div>
+{% endif %}
+
 {% endblock %}

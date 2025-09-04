@@ -1,42 +1,47 @@
 {% extends 'base/base.html' %}
 {% load i18n %}
+
 {% block content %}
 <h2>{% trans "Username Change" %}</h2>
 
 <form method="post">
     {% csrf_token %}
+
     {% for field in form %}
-        <div class="mb-3">
-            <p>{{ field.label_tag }}</p>
-            {{ field }}
-            {% if field.errors %}
-                <div class="error">
-                {% for error in field.errors %}
-                    <p> {{ error }} </p>
-                {% endfor %}
-                </div>
-            {% endif %}
-    </div>
-    {% endfor %}
-    {% if messages %}
+    <div class="mb-3">
+        <p>{{ field.label_tag }}</p>
+        {{ field }}
+        {% if field.errors %}
         <div class="error">
-            {% for message in messages %}
-                <p> {{ message }} </p>
+            {% for error in field.errors %}
+            <p>{{ error }}</p>
             {% endfor %}
         </div>
-    {% endif %}
-    {% if request.session.pending_data %}
-        <button type="submit" class="btn btn-warning">
-            {% trans "Confirm Code" %}
-        </button>
-    {% else %}
-        <a class="btn btn-warning" href="{% url 'account_details' user.id %}">
-            {% trans "Cancel" %}
-        </a>
-        <button type="submit" class="btn btn-warning">
-            {% trans "Send Code" %}
-        </button>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    {% if messages %}
+    <div class="error">
+        {% for message in messages %}
+        <p>{{ message }}</p>
+        {% endfor %}
+    </div>
     {% endif %}
 
+    <div class="d-flex gap-2">
+        {% if request.session.pending_data %}
+            <button type="submit" class="btn btn-warning">
+                {% trans "Confirm Code" %}
+            </button>
+        {% else %}
+            <a class="btn btn-warning" href="{% url 'account_details' user.id %}">
+                {% trans "Cancel" %}
+            </a>
+            <button type="submit" class="btn btn-warning">
+                {% trans "Send Code" %}
+            </button>
+        {% endif %}
+    </div>
 </form>
 {% endblock %}

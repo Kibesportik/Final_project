@@ -1,32 +1,43 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
+
 {% block content %}
-<h2>Favourites List:</h2>
+<h2>{% trans "Favourites List:" %}</h2>
 
 {% if favourites_list %}
-  <div class="row row-cols-1 row-cols-md-3 g-1">
+<div class="row row-cols-1 row-cols-md-3 g-1">
     {% for picture in favourites_list %}
-    <div class="my_card">
-      <a href="{% url 'picture_details' picture.pk %}" class="invisible-link">
-        <div class="row g-2 align-items-start">
-          <div class="col-6">
-            <img src="{{ picture.presigned_url }}" alt="{{ picture.name }}" style="max-width:300px;">
-          </div>
-          <div class="col-6 text-start">
-            <h4>Short Picture Info:</h4>
-            <span class="badge badge_text bg-warning text-dark">Picture name: {{ picture.name }}</span><br>
-            <span class="badge badge_text bg-warning text-dark">Size: {{ picture.sizeHorizontal }} x {{ picture.sizeVertical }} cm</span><br>
-            <span class="badge badge_text bg-warning text-dark">Price: {{ picture.price }} £</span><br>
-          </div>
+    <div class="col">
+        <div class="card shadow-sm">
+            <a href="{% url 'picture_details' picture.pk %}" class="invisible-link">
+                <img src="{{ picture.presigned_url }}" class="bd-placeholder-img card-img-top"
+                     alt="{{ picture.name }}" height="250" style="object-fit: cover; width: 100%;">
+                <div class="card-body">
+                    <h4 class="card-title">{% trans "Short Picture Info:" %}</h4>
+                    <span class="badge bg-warning text-dark">
+                        {% trans "Picture name:" %} {{ picture.name }}
+                    </span><br>
+                    <span class="badge bg-warning text-dark">
+                        {% trans "Size:" %} {{ picture.sizeHorizontal }} x {{ picture.sizeVertical }} cm
+                    </span><br>
+                    <span class="badge bg-warning text-dark">
+                        {% trans "Price:" %} {{ picture.price }} £
+                    </span>
+                </div>
+            </a>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <form method="post" action="{% url 'favourites_delete' picture.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger text-dark delete_btn">
+                        {% trans "Dislike" %} <i class="bi bi-heartbreak-fill"></i>
+                    </button>
+                </form>
+            </div>
         </div>
-      </a>
-      <form method="post" action="{% url 'favourites_delete' picture.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-danger text-dark delete_btn">Dislike <i class="bi bi-heartbreak-fill"></i></button>
-      </form>
     </div>
     {% endfor %}
-  </div>
+</div>
 {% else %}
-  <p>No favourites yet ...</p>
+<p>{% trans "No favourites yet ..." %}</p>
 {% endif %}
 {% endblock %}

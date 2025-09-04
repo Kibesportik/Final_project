@@ -1,9 +1,11 @@
-from django.contrib.auth.mixins import AccessMixin
-from django.contrib import messages
-from django.shortcuts import redirect
-from .forms import CodeForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
+from django.shortcuts import redirect
+from django.utils.translation import gettext_lazy as _
+
+from .forms import CodeForm
+
 
 class CodeConfirmationMixin:
     session_key_data = "pending_data"
@@ -25,7 +27,6 @@ class CodeConfirmationMixin:
         self.send_code()
         return redirect(self.request.path)
 
-
     def handle_code_form(self, form, pending_data):
         raise NotImplementedError
 
@@ -33,17 +34,17 @@ class CodeConfirmationMixin:
         if isinstance(form, self.initial_form_class):
             return self.handle_initial_form(form)
 
-        elif isinstance(form, self.code_form_class):
+        if isinstance(form, self.code_form_class):
             code_entered = form.cleaned_data["code"]
             code_session = self.request.session.get(self.session_key_code)
             pending_data = self.request.session.get(self.session_key_data)
 
             if not code_session or not pending_data:
-                messages.error(self.request, "Нет данных для подтверждения. Попробуйте снова.")
+                messages.error(self.request, _("No data to confirm. Try again."))
                 return redirect(self.request.path)
 
             if code_entered != code_session:
-                messages.error(self.request, "Неверный код подтверждения.")
+                messages.error(self.request, _("Incorrect confirmation code."))
                 return self.form_invalid(form)
 
             response = self.handle_code_form(form, pending_data)
@@ -56,12 +57,14 @@ class CodeConfirmationMixin:
     def send_code(self):
         raise NotImplementedError
 
+
 class CleanLoginRequiredMixin(LoginRequiredMixin):
-        def handle_no_permission(self):
-            return redirect(settings.LOGIN_URL)
+    def handle_no_permission(self):
+        return redirect(settings.LOGIN_URL)
+
 
 class SuperuserRequiredMixin(AccessMixin):
-    def dispatch(self,request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         if not request.user.is_superuser:
-            return redirect('/')
+            return redirect("/")
         return super().dispatch(request, *args, **kwargs)

@@ -1,0 +1,282 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-02 18:30+0100\n"
+"PO-Revision-Date: 2025-09-02 18:30+0100\n"
+"Last-Translator: Your Name <you@example.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wildlife Captures"
+msgstr ""
+
+msgid "Wildlife Captures: Admin Pannel"
+msgstr ""
+
+msgid "Home Page"
+msgstr ""
+
+msgid "Liked"
+msgstr ""
+
+msgid "Cart"
+msgstr ""
+
+msgid "Search..."
+msgstr ""
+
+msgid "Information About Picture:"
+msgstr ""
+
+msgid "Name:"
+msgstr ""
+
+msgid "Description:"
+msgstr ""
+
+msgid "Date of arrival:"
+msgstr ""
+
+msgid "Like"
+msgstr ""
+
+msgid "Add to cart"
+msgstr ""
+
+msgid "Already ordered by you"
+msgstr ""
+
+msgid "Upload Photo"
+msgstr ""
+
+msgid "Save"
+msgstr ""
+
+msgid "Name (EN)"
+msgstr ""
+
+msgid "Name (UK)"
+msgstr ""
+
+msgid "Description (EN)"
+msgstr ""
+
+msgid "Description (UK)"
+msgstr ""
+
+msgid "Full name"
+msgstr ""
+
+msgid "Postcode"
+msgstr ""
+
+msgid "Order confirmation via email"
+msgstr ""
+
+msgid "Order Confirmation"
+msgstr ""
+
+msgid ""
+"Confirmation of your order:\n"
+"Picture name: {name}\n"
+"Order price: {price} £\n"
+"Order date: {date}"
+msgstr ""
+
+msgid "Account Details:"
+msgstr ""
+
+msgid "Your username:"
+msgstr ""
+
+msgid "Your email:"
+msgstr ""
+
+msgid "Log out"
+msgstr ""
+
+msgid "Ordered Pictures:"
+msgstr ""
+
+msgid "Order Info:"
+msgstr ""
+
+msgid "Ordered on name:"
+msgstr ""
+
+msgid "Delivery postcode:"
+msgstr ""
+
+msgid "Date of order:"
+msgstr ""
+
+msgid "No orders yet ..."
+msgstr ""
+
+msgid "Admin Settings:"
+msgstr ""
+
+msgid "Upload photo"
+msgstr ""
+
+msgid "Confirm to log out"
+msgstr ""
+
+msgid "Confirm"
+msgstr ""
+
+msgid "Cart List:"
+msgstr ""
+
+msgid "Order"
+msgstr ""
+
+msgid "Delete from cart"
+msgstr ""
+
+msgid "Order picture:"
+msgstr ""
+
+msgid "Confirm order"
+msgstr ""
+
+msgid "Anything in cart yet ..."
+msgstr ""
+
+msgid "Password Change"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Confirm Code"
+msgstr ""
+
+msgid "Send Code"
+msgstr ""
+
+msgid "Username Change"
+msgstr ""
+
+msgid "Favourites List:"
+msgstr ""
+
+msgid "Short Picture Info:"
+msgstr ""
+
+msgid "Picture name:"
+msgstr ""
+
+msgid "Size:"
+msgstr ""
+
+msgid "Price:"
+msgstr ""
+
+msgid "Dislike"
+msgstr ""
+
+msgid "No favourites yet ..."
+msgstr ""
+
+msgid "Login:"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Don`t have an account yet? :"
+msgstr ""
+
+msgid "Register"
+msgstr ""
+
+msgid "Register:"
+msgstr ""
+
+msgid "Already have an account? :"
+msgstr ""
+
+msgid "Confirmation Code"
+msgstr ""
+
+msgid "New username"
+msgstr ""
+
+msgid "This username is already taken."
+msgstr ""
+
+msgid "This is already your username."
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+msgid "Password"
+msgstr ""
+
+msgid "Password confirmation"
+msgstr ""
+
+msgid "No data to confirm. Try again."
+msgstr ""
+
+msgid "Incorrect confirmation code."
+msgstr ""
+
+msgid "Confirmation"
+msgstr ""
+
+msgid "Your confirmation code is: {code}"
+msgstr ""
+
+msgid "Username change confirmation"
+msgstr ""
+
+msgid "Password change confirmation"
+msgstr ""
+
+msgid "Change username"
+msgstr ""
+
+msgid "Forgot password"
+msgstr ""
+
+msgid "cm"
+msgstr ""
+
+msgid "Price in GBP (£)"
+msgstr ""
+
+msgid "Width (cm)"
+msgstr ""
+
+msgid "Height (cm)"
+msgstr ""
+
+msgid "Date of Arrival"
+msgstr ""
+
+msgid "Choose a file"
+msgstr ""
+
+msgid "Previous"
+msgstr ""
+
+msgid "Next"
+msgstr ""
+
+msgid "Page"
+msgstr ""
+
+msgid "of"
+msgstr ""

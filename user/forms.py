@@ -1,16 +1,26 @@
+from .models import User
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import User
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+
 
 class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ("username", "email", "password1", "password2")
+        labels = {
+            "username": _("Username"),
+            "email": _("Email"),
+            "password1": _("Password"),
+            "password2": _("Password confirmation"),
+        }
 
 
 class UserLoginForm(AuthenticationForm):
-    pass
+    username = forms.CharField(label=_("Username"))
+    password = forms.CharField(label=_("Password"), widget=forms.PasswordInput)
+
 
 class CodeForm(forms.Form):
     code = forms.CharField(
@@ -18,12 +28,14 @@ class CodeForm(forms.Form):
         label=_("Confirmation Code")
     )
 
+
 class UsernameChangeForm(forms.Form):
     new_username = forms.CharField(
         label=_("New username"),
-        max_length = 150,
-        required = True
+        max_length=150,
+        required=True
     )
+
     def __init__(self, *args, user=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
@@ -38,3 +50,9 @@ class UsernameChangeForm(forms.Form):
             raise forms.ValidationError(_("This is already your username."))
 
         return new_username
+
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields.pop("old_password")

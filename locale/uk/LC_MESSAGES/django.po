@@ -1,0 +1,286 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-02 18:30+0100\n"
+"PO-Revision-Date: 2025-09-02 18:30+0100\n"
+"Last-Translator: Your Name <you@example.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+
+msgid "Wildlife Captures"
+msgstr "Світ дикої природи"
+
+msgid "Wildlife Captures: Admin Pannel"
+msgstr "Світ дикої природи: Панель адміністратора"
+
+msgid "Home Page"
+msgstr "Головна сторінка"
+
+msgid "Liked"
+msgstr "Обране"
+
+msgid "Cart"
+msgstr "Кошик"
+
+msgid "Search..."
+msgstr "Пошук..."
+
+msgid "Information About Picture:"
+msgstr "Інформація про картину:"
+
+msgid "Name:"
+msgstr "Назва:"
+
+msgid "Description:"
+msgstr "Опис:"
+
+msgid "Date of arrival:"
+msgstr "Дата надходження:"
+
+msgid "Like"
+msgstr "Подобається"
+
+msgid "Add to cart"
+msgstr "Додати до кошика"
+
+msgid "Already ordered by you"
+msgstr "Ви вже замовили цю картину"
+
+msgid "Upload Photo"
+msgstr "Завантажити фото"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Price in GBP (£)"
+msgstr "Ціна у фунтах стерлінгів (£)"
+
+msgid "Name (EN)"
+msgstr "Назва (Анг)"
+
+msgid "Name (UK)"
+msgstr "Назва (Укр)"
+
+msgid "Description (EN)"
+msgstr "Опис (Анг)"
+
+msgid "Description (UK)"
+msgstr "Опис (Укр)"
+
+msgid "Full name"
+msgstr "Повне ім'я"
+
+msgid "Postcode"
+msgstr "Поштовий індекс"
+
+msgid "Order confirmation via email"
+msgstr "Підтвердження замовлення електронною поштою"
+
+msgid "Order Confirmation"
+msgstr "Підтвердження замовлення"
+
+msgid ""
+"Confirmation of your order:\n"
+"Picture name: {name}\n"
+"Order price: {price} £\n"
+"Order date: {date}"
+msgstr ""
+"Підтвердження вашого замовлення:\n"
+"Назва картини: {name}\n"
+"Ціна замовлення: {price} £\n"
+"Дата замовлення: {date}"
+
+msgid "Account Details:"
+msgstr "Дані облікового запису:"
+
+msgid "Your username:"
+msgstr "Ваше ім'я користувача:"
+
+msgid "Your email:"
+msgstr "Ваша електронна пошта:"
+
+msgid "Log out"
+msgstr "Вийти"
+
+msgid "Ordered Pictures:"
+msgstr "Замовлені картини:"
+
+msgid "Order Info:"
+msgstr "Інформація про замовлення:"
+
+msgid "Ordered on name:"
+msgstr "Замовлено на ім'я:"
+
+msgid "Delivery postcode:"
+msgstr "Поштовий індекс доставки:"
+
+msgid "Date of order:"
+msgstr "Дата замовлення:"
+
+msgid "No orders yet ..."
+msgstr "Поки що замовлень немає ..."
+
+msgid "Admin Settings:"
+msgstr "Налаштування адміністратора:"
+
+msgid "Upload photo"
+msgstr "Завантажити фото"
+
+msgid "Confirm to log out"
+msgstr "Підтвердіть вихід"
+
+msgid "Confirm"
+msgstr "Підтвердити"
+
+msgid "Cart List:"
+msgstr "Кошик:"
+
+msgid "Order"
+msgstr "Замовити"
+
+msgid "Delete from cart"
+msgstr "Видалити з кошика"
+
+msgid "Order picture:"
+msgstr "Замовити картину:"
+
+msgid "Confirm order"
+msgstr "Підтвердити замовлення"
+
+msgid "Anything in cart yet ..."
+msgstr "Поки що нічого в кошику ..."
+
+msgid "Password Change"
+msgstr "Зміна пароля"
+
+msgid "Cancel"
+msgstr "Скасувати"
+
+msgid "Confirm Code"
+msgstr "Підтвердити код"
+
+msgid "Send Code"
+msgstr "Відправити код"
+
+msgid "Username Change"
+msgstr "Зміна імені користувача"
+
+msgid "Favourites List:"
+msgstr "Список обраного:"
+
+msgid "Short Picture Info:"
+msgstr "Інформація про картину:"
+
+msgid "Picture name:"
+msgstr "Назва картини:"
+
+msgid "Size:"
+msgstr "Розмір:"
+
+msgid "Price:"
+msgstr "Ціна:"
+
+msgid "Dislike"
+msgstr "Не подобається"
+
+msgid "No favourites yet ..."
+msgstr "Поки що немає обраного ..."
+
+msgid "Login:"
+msgstr "Вхід:"
+
+msgid "Login"
+msgstr "Увійти"
+
+msgid "Don`t have an account yet? :"
+msgstr "Ще немає облікового запису? :"
+
+msgid "Register"
+msgstr "Зареєструватися"
+
+msgid "Register:"
+msgstr "Реєстрація:"
+
+msgid "Already have an account? :"
+msgstr "Вже маєте обліковий запис? :"
+
+msgid "Confirmation Code"
+msgstr "Код підтвердження"
+
+msgid "New username"
+msgstr "Нове ім'я користувача"
+
+msgid "This username is already taken."
+msgstr "Це ім'я користувача вже зайняте."
+
+msgid "This is already your username."
+msgstr "Це вже ваше ім'я користувача"
+
+msgid "Username"
+msgstr "Ім'я користувача"
+
+msgid "Email"
+msgstr "Електронна пошта"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Password confirmation"
+msgstr "Підтвердження пароля"
+
+msgid "No data to confirm. Try again."
+msgstr "Немає даних для підтвердження. Спробуйте ще раз."
+
+msgid "Incorrect confirmation code."
+msgstr "Невірний код підтвердження."
+
+msgid "Confirmation"
+msgstr "Підтвердження"
+
+msgid "Your confirmation code is: {code}"
+msgstr "Ваш код підтвердження: {code}"
+
+msgid "Username change confirmation"
+msgstr "Підтвердження зміни імені користувача"
+
+msgid "Password change confirmation"
+msgstr "Підтвердження зміни пароля"
+
+msgid "Change username"
+msgstr "Змінити ім'я"
+
+msgid "Forgot password"
+msgstr "Забув пароль"
+
+msgid "cm"
+msgstr "см"
+
+msgid "Width (cm)"
+msgstr "Ширина (см)"
+
+msgid "Height (cm)"
+msgstr "Висота (см)"
+
+msgid "Date of Arrival"
+msgstr "Дата надходження"
+
+msgid "Choose a file"
+msgstr "Оберіть зображення"
+
+msgid "Previous"
+msgstr "Попередня"
+
+msgid "Next"
+msgstr "Наступна"
+
+msgid "Page"
+msgstr "Сторінка"
+
+msgid "of"
+msgstr "з"

@@ -1,66 +1,87 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
+
 {% block content %}
-<h2>Cart List:</h2>
+<h2>{% trans "Cart List:" %}</h2>
 
 {% if cart_list %}
-  <div class="row row-cols-1 row-cols-md-3 g-1">
+<div class="row row-cols-1 row-cols-md-3 g-1">
     {% for picture in cart_list %}
-      <div class="my_card">
-        <a href="{% url 'picture_details' picture.id %}" class="invisible-link">
-          <div class="row g-2 align-items-start">
-            <div class="col-6">
-              <img src="{{ picture.presigned_url }}" alt="{{ picture.name }}" style="max-width:300px;">
-            </div>
-            <div class="col-6 text-start">
-              <h4>Short Picture Info:</h4>
-              <span class="badge bg-warning text-dark">Picture name: {{ picture.name }}</span><br>
-              <span class="badge badge_text bg-warning text-dark">Size: {{ picture.sizeHorizontal }} x {{ picture.sizeVertical }} cm</span><br>
-              <span class="badge bg-warning text-dark">Price: {{ picture.price }} £</span><br>
-            </div>
-          </div>
-        </a>
-        <button class="btn btn-warning text-dark order_btn" data-bs-toggle="modal"
-         data-bs-target="#Order_Window{{picture.id}}">Order</button>
-        <form method="post" action="{% url 'cart_delete' picture.id %}">
-          {% csrf_token %}
-          <button type="submit" class="btn btn-danger text-dark delete_btn">Delete from cart <i class="bi bi-cart-fill"></i></button>
-        </form>
-      </div>
-      <div class="modal fade" id="Order_Window{{picture.id}}" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Order picture: {{picture.name}}</h5>
-            </div>
-            <div class="modal-body">
-              <form method="post" action="{% url 'new_order' %}">
-                {% csrf_token %}
-                <input type="hidden" name="picture_id" value="{{ picture.id }}">
-                {% for field in order_form %}
-                  <div class="mb-3">
-                    {{ field.label_tag }}
-                    {{ field }}
-                    {% if field.errors %}
-                      <div class="error">
-                        {% for error in field.errors %}
-                          {{ error }}<br>
-                        {% endfor %}
-                      </div>
-                    {% endif %}
-                  </div>
-                {% endfor %}
-                <div class="modal-footer d-flex">
-                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                  <button type="submit" class="btn btn-warning ms-auto">Confirm order</button>
+    <div class="col">
+        <div class="card shadow-sm">
+            <a href="{% url 'picture_details' picture.pk %}" class="invisible-link">
+                <img src="{{ picture.presigned_url }}" class="bd-placeholder-img card-img-top"
+                     alt="{{ picture.name }}" height="250" style="object-fit: cover; width: 100%;">
+                <div class="card-body">
+                    <h4 class="card-title">{% trans "Short Picture Info:" %}</h4>
+                    <span class="badge bg-warning text-dark">
+                        {% trans "Picture name:" %} {{ picture.name }}
+                    </span><br>
+                    <span class="badge bg-warning text-dark">
+                        {% trans "Size:" %} {{ picture.sizeHorizontal }} x {{ picture.sizeVertical }} cm
+                    </span><br>
+                    <span class="badge bg-warning text-dark">
+                        {% trans "Price:" %} {{ picture.price }} £
+                    </span>
                 </div>
-              </form>
+            </a>
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+                <button class="btn btn-warning text-dark order_btn" data-bs-toggle="modal"
+                        data-bs-target="#Order_Window{{ picture.id }}">
+                    {% trans "Order" %}
+                </button>
+
+                <form method="post" action="{% url 'cart_delete' picture.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger text-dark delete_btn">
+                        {% trans "Delete from cart" %} <i class="bi bi-cart-fill"></i>
+                    </button>
+                </form>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+
+    <div class="modal fade" id="Order_Window{{ picture.id }}" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        {% trans "Order picture:" %} {{ picture.name }}
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="{% url 'new_order' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="picture_id" value="{{ picture.id }}">
+                        {% for field in order_form %}
+                        <div class="mb-3">
+                            {{ field.label_tag }}
+                            {{ field }}
+                            {% if field.errors %}
+                            <div class="error">
+                                {% for error in field.errors %}
+                                    {{ error }}<br>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+                        <div class="modal-footer d-flex">
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            <button type="submit" class="btn btn-warning ms-auto">
+                                {% trans "Confirm order" %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {% endfor %}
-  </div>
+</div>
 {% else %}
-  <p>Anything in cart yet ...</p>
+<p>{% trans "Anything in cart yet ..." %}</p>
 {% endif %}
 {% endblock %}
